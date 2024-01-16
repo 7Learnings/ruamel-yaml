@@ -1133,6 +1133,8 @@ class RoundTripConstructor(SafeConstructor):
             except ValueError:
                 mantissa, exponent = value_so.split('E')
                 exp = 'E'
+            if not '.' in mantissa:
+                    mantissa = mantissa + '.0'
             if self.resolver.processing_version != (1, 2):
                 # value_s is lower case independent of input
                 if '.' not in mantissa:

@@ -284,16 +284,16 @@ class SafeRepresenter(BaseRepresenter):
             value = '-.inf'
         else:
             value = repr(data).lower()
-            if getattr(self.serializer, 'use_version', None) == (1, 1):
-                if '.' not in value and 'e' in value:
-                    # Note that in some cases `repr(data)` represents a float number
-                    # without the decimal parts.  For instance:
-                    #   >>> repr(1e17)
-                    #   '1e17'
-                    # Unfortunately, this is not a valid float representation according
-                    # to the definition of the `!!float` tag in YAML 1.1.  We fix
-                    # this by adding '.0' before the 'e' symbol.
-                    value = value.replace('e', '.0e', 1)
+            # if getattr(self.serializer, 'use_version', None) == (1, 1):
+            if '.' not in value and 'e' in value:
+                # Note that in some cases `repr(data)` represents a float number
+                # without the decimal parts.  For instance:
+                #   >>> repr(1e17)
+                #   '1e17'
+                # Unfortunately, this is not a valid float representation according
+                # to the definition of the `!!float` tag in YAML 1.1.  We fix
+                # this by adding '.0' before the 'e' symbol.
+                value = value.replace('e', '.0e', 1)
         return self.represent_scalar('tag:yaml.org,2002:float', value)
 
     def represent_list(self, data: Any) -> SequenceNode:
